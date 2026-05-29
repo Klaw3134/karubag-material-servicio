@@ -4,6 +4,8 @@ import cl.karubag.material.dto.MaterialDTO;
 import cl.karubag.material.model.Material;
 import cl.karubag.material.model.TipoMaterial;
 import cl.karubag.material.repository.MaterialRepository;
+import cl.karubag.material.exception.ResourceNotFoundException;
+import cl.karubag.material.exception.DuplicateResourceException;
 import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -40,20 +42,20 @@ public class MaterialService {
 
     public MaterialDTO obtenerPorId(Long id) {
         Material material = materialRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Material no encontrado con id: " + id));
+            .orElseThrow(() -> new ResourceNotFoundException("Material no encontrado con id: " + id));
         return toDTO(material);
     }
 
     public MaterialDTO crear(MaterialDTO dto) {
         if (materialRepository.existsByNombre(dto.getNombre())) {
-            throw new RuntimeException("Ya existe un material con el nombre: " + dto.getNombre());
+        throw new DuplicateResourceException("Ya existe un material con el nombre: " + dto.getNombre());
         }
         return toDTO(materialRepository.save(toEntity(dto)));
     }
 
     public MaterialDTO actualizar(Long id, MaterialDTO dto) {
         Material material = materialRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Material no encontrado con id: " + id));
+        .orElseThrow(() -> new ResourceNotFoundException("Material no encontrado con id: " + id));
         material.setNombre(dto.getNombre());
         material.setDescripcion(dto.getDescripcion());
         material.setTipo(dto.getTipo());
