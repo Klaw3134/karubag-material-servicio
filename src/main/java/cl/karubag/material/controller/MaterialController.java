@@ -16,7 +16,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
-@Tag(name = "Materiales", description = "Gestión de materiales reciclables Karübag")
+@Tag(name = "Materiales", description = "Gestion de materiales reciclables Karübag")
 @RestController
 @RequestMapping("/api/materiales")
 public class MaterialController {
@@ -62,7 +62,7 @@ public class MaterialController {
     @ApiResponses(value = {
         @ApiResponse(responseCode = "201", description = "Material creado exitosamente",
             content = @Content(schema = @Schema(implementation = MaterialDTO.class),
-            examples = @ExampleObject(value = "{\"nombre\": \"Cartón\", \"tipo\": \"CARTON\", \"precioPorKilo\": 150.0, \"activo\": true}"))),
+            examples = @ExampleObject(value = "{\"nombre\": \"Carton\", \"tipo\": \"CARTON\", \"precioPorKilo\": 150.0, \"activo\": true}"))),
         @ApiResponse(responseCode = "409", description = "Ya existe un material con ese nombre")
     })
     @PostMapping
@@ -70,7 +70,7 @@ public class MaterialController {
         @io.swagger.v3.oas.annotations.parameters.RequestBody(
             description = "Datos del material a crear",
             required = true,
-            content = @Content(examples = @ExampleObject(value = "{\"nombre\": \"Cartón\", \"tipo\": \"CARTON\", \"precioPorKilo\": 150.0, \"activo\": true}")))
+            content = @Content(examples = @ExampleObject(value = "{\"nombre\": \"Carton\", \"tipo\": \"CARTON\", \"precioPorKilo\": 150.0, \"activo\": true}")))
         @Valid @RequestBody MaterialDTO dto) {
         return ResponseEntity.status(HttpStatus.CREATED).body(materialService.crear(dto));
     }

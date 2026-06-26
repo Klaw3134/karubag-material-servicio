@@ -11,6 +11,6 @@ public class OpenApiConfig {
                 .info(new Info()
                         .title("Material Servicio API")
                         .version("1.0")
-                        .description("API de gestión de materiales reciclables Karübag"));
+                        .description("API de gestion de materiales reciclables Karübag"));
     }
 }
